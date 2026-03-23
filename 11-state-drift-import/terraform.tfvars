@@ -1,0 +1,14 @@
+vpc_name                = "tf_vpc"
+vpc_cidr                = "10.0.0.0/16"
+igw_name                = "tf_igw"
+RT_name                 = "public_RT_tf"
+pub_RT_route1_cidr      = "0.0.0.0/0"
+subnet_name             = "public-subnet-tf"
+subnet_az               = "us-east-1a"
+subnet_cidr_block       = "10.0.1.0/24"
+sg_name                 = "tf_sg_allow_all"
+sg_inbound_cidr_blocks  = ["0.0.0.0/0"]
+sg_outbound_cidr_blocks = ["0.0.0.0/0"]
+ec2-name                = "server-1"
+ec2_az                  = "us-east-1a"
+ec2_keypair_name        = "sujanreddyNVKeypair"

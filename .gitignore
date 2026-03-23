@@ -1,0 +1,8 @@
+#Ignore Terraform working directory
+**/.terraform
+
+#Ignore Terraform state files(all levels(in subfolders as well))
+*.tfstate
+*.tfstate.*
+
+.terraform.loct.hcl

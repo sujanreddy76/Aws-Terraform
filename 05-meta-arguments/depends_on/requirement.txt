@@ -1,0 +1,2 @@
+Only after creating Security group then only VM should be created.
+so to show how depends on works we will simulate a delay by ourself using null_resource.
