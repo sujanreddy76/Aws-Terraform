@@ -74,13 +74,34 @@ resource "aws_security_group" "allow_all" {
     Name = "allow_all"
   }
 }
+#create ssh keypair, combination of public and private key
+resource "tls_private_key" "jenkins-keys" {
+  algorithm = "RSA"
+  rsa_bits = 4096
+  
+}
+#Save the private key to local file
+resource "local_file" "jenkins-private-key" {
+    filename = "${path.module}/id_rsa"
+    content = tls_private_key.jenkins-keys.private_key_pem
+}
+#Save the public key to local file
+resource "local_file" "jenkins-public-key" {
+    filename = "${path.module}/id_rsa.pub"
+    content = tls_private_key.jenkins-keys.public_key_openssh 
+}
+resource "aws_key_pair" "jenkins_key" {
+  key_name   = "jenkins-key"
+  public_key = tls_private_key.jenkins-keys.public_key_openssh
+}
+
 
 #ec2-instance
 resource "aws_instance" "terraform-instance" {
   ami                         = "ami-0b6c6ebed2801a5cb"
   availability_zone           = "us-east-1a"
   instance_type               = "t2.micro"
-  key_name                    = "sujanreddyNVKeypair"
+  key_name                    = aws_key_pair.jenkins_key.key_name
   subnet_id                   = aws_subnet.public-subnet-terraform.id
   vpc_security_group_ids      = [aws_security_group.allow_all.id]
   associate_public_ip_address = true

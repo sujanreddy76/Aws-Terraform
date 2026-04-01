@@ -6,8 +6,8 @@ provider "aws" {
 }
 terraform {
   backend "s3" {
-    bucket = "workspacesbucket00001"
-    key    = "workspace.tfstate"
+    bucket = "iac-bucket0101"
+    key    = "jenkins-iac.tfstate"
     region = "us-east-1"
     use_lockfile = true
   }
